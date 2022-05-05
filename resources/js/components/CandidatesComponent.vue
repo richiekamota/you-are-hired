@@ -1,12 +1,12 @@
-<template v-for="candidate in candidates">
- <span>{{candidate.name}} </span>
-
+<template v-for="candidate in this.candidates">
+     <span>{{this.candidates}}</span>    
 </template>
 
 <script>
     export default {
+        props: ['candidates'],
         mounted() {
-            console.log('Component mounted.')
+            console.log(this.candidates)
         }
     }
 </script>
