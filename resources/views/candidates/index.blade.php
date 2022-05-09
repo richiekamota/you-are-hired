@@ -29,7 +29,7 @@
                     <ul class="navbar-nav ms-auto">                        
                         <li class="nav-item dropdown">
                             <select disabled>  
-                                @foreach ($companies as $company)                                          
+                                @foreach ($companies as $company)                             
                                     <option <?php echo request()->get('id') == $company->id ? 'selected' : ''; ?> value="{{$company->id}}">{{$company->name}}</option>
                                 @endforeach                                                             
                             </select>
@@ -38,8 +38,8 @@
                 </div>
             </div>
         </nav>
-        <div class="w-full p-6 bg-teal-100 text-right font-bold mt-3" style="text-align:center"><h4>Your wallet has: {{$coins ?? '?' }} coins</h4></div>
-            <candidates :candidates="{{ json_encode($candidates) }}"></candidates>
+        <div class="w-full p-6 bg-teal-100 text-right font-bold mt-3" style="text-align:center"><h4>Your wallet has: {{$coins}} coins</h4></div>
+            <candidates :company_id="{{ json_encode(request()->get('id')) }}" :candidates="{{ json_encode($candidates) }}"></candidates>
         </div>
     <script src="{{ mix('/js/app.js') }}"></script>
     </body>

@@ -16,9 +16,9 @@ class CandidateContactedNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($candidate)
+    public function __construct($can)
     {
-        $this->candidate = $candidate;
+        $this->can = $can;
     }
 
     /**
@@ -42,8 +42,9 @@ class CandidateContactedNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
         ->subject('Interview Time!!')
-        ->from('sender@example.com', 'Sender')
-        ->greeting('Hello!')
+        ->from('company@example.com', 'Sender')
+        ->to($can->email, $can->name)
+        ->greeting('Hello!'.$can->name)
         ->line('You are being invited for the interview!')
         ->action('Check out the invitation at', url('/'))
         ->line('Best regards!');

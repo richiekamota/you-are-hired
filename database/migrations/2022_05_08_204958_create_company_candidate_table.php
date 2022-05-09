@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Company;
+use App\Models\Candidate;
 
 return new class extends Migration
 {
@@ -14,9 +16,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('company_candidate', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('company_id')->constrained();
-            $table->foreignId('candidate_id')->constrained();
+            $table->bigIncrements('id');
+            $table->foreignIdFor(Company::class)->constrained();
+            $table->foreignIdFor(Candidate::class)->constrained();
             $table->enum('status', ['Contacted', 'Hired'])->default('Contacted');
             $table->timestamps();
         });

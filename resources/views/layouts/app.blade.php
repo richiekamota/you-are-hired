@@ -48,8 +48,8 @@
     </div>
     <script>
         function companyTrack() {
-        var id = document.getElementById("mySelect").value;
-        document.location.replace('/home?&id='+id);
+         var id = document.getElementById("mySelect").value;
+         document.location.replace('/home?&id='+id);
         }
     </script>
 </body>
