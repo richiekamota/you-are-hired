@@ -33,3 +33,11 @@ docker exec -it you-are-hired-test1 php artisan db:seed
 ```
 
 Once the application's Docker containers have been started, you can access the application in your web browser at: http://localhost. On the home page select your company (simulated authentication and authorisation feature) before clicking the "Go to candidates list" link.
+
+## Feature tests
+
+For feature tests, comment out appropriate code labelled in the CandidateController and run this command
+
+```
+docker exec -it you-are-hired_laravel.test_1 php artisan test --testsuite=Feature --stop-on-failure
+```

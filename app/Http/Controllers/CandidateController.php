@@ -42,13 +42,16 @@ class CandidateController extends Controller
             ['candidate_id' => $id],
             ['status'=>'Contacted']]);  
 
+            //Comment out this when you need to run feature tests
             $co = new WalletService($this->hiring_stage);
             $co->scan('CONT',$company_id); 
             $coins = $co->total;   
             
+            //Comment out this when you need to run feature tests
             Notification::send($can,new CandidateContactedNotification($can));   
-            
-        return view('candidates.index', compact('candidates', 'coins','companies'));
+           
+            //Comment out this when you need to run feature tests   
+            return view('candidates.index', compact('candidates', 'coins','companies'));
     }
 
     public function hire($id,$company_id){
@@ -59,17 +62,26 @@ class CandidateController extends Controller
 
         $candidate = $can->update(['status'=>'Hired']);
 
+        //For feature tests you can populate the pivot table using this
+        // $can->companies()->attach(
+        //     ['company_id' => $company_id,
+        //     'candidate_id' => $id],
+        //     ['status'=>'Hired']);   
+        
+        //For live running you can populate the pivot table using this    
         $can->companies()->sync([
             ['company_id' => $company_id],
             ['candidate_id' => $id],
-            ['status'=>'Hired']]);   
+            ['status'=>'Hired']]);
             
-            $co = new WalletService($this->hiring_stage);
-            $co->scan('HIRE',$company_id); 
-            $coins = $co->total; 
+        //Comment out this when you need to run feature tests
+        $co = new WalletService($this->hiring_stage);
+        $co->scan('HIRE',$company_id); 
+        $coins = $co->total; 
 
-            Notification::send($can,new CandidateHiredNotification($can));  
-
+        //Comment out this when you need to run feature tests
+        Notification::send($can,new CandidateHiredNotification($can));  
+        //Comment out this when you need to run feature tests
         return view('candidates.index', compact('candidates', 'coins','companies'));            
     }
 }
