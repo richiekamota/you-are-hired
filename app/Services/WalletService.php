@@ -24,21 +24,22 @@ class WalletService
     { 
         $rule = $this->hiring_stage[$status];
 
-        $total = Wallet::where('company_id',$company_id)->value('coins');
+        $this->total = Wallet::where('company_id',$company_id)->value('coins');
          
         if($rule == 'reduce_wallet'){
-            
-            $total = $total-5;
 
-            Wallet::where('company_id',$company_id)->update(['coins'=>$total]);
+            $this->total = $this->total - 5;
+
+            Wallet::where('company_id',$company_id)->update(['coins'=>$this->total]);
 
         } elseif($rule == 'restore_wallet') {
             
-            $total = $total+5;
+            $this->total = $this->total < 20 ? $this->total+5 : $this->total;
 
-            Wallet::where('company_id',$company_id)->update(['coins'=>$total]);
+            Wallet::where('company_id',$company_id)->update(['coins'=>$this->total]);
+    
         }
 
-        return $total;
+        return $this->total;
     }
 }

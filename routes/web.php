@@ -22,3 +22,4 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('candidates-list', [CandidateController::class, 'index']);
 Route::post('candidates-contact/{id}/{company_id}', [CandidateController::class, 'contact']);
+Route::post('candidates-hire/{id}/{company_id}', [CandidateController::class, 'hire']);

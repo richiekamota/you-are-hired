@@ -51,4 +51,31 @@ class HiringTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_company_can_hire_candidate()
+    {
+        $response = $this->post('/candidates-hire/'.$this->candidate->id.'/'.$this->company->id);
+
+        $this->assertDatabaseHas('candidates',[
+            'id' => $this->candidate->id,
+            'status' => 'Hired'
+        ]);
+
+        $this->assertDatabaseHas('company_candidate', [
+            'company_id' => $this->company->id,
+            'candidate_id' => $this->candidate->id,
+            'status' => 'Hired'
+        ]);
+
+        $hiring_stage = [
+            'CONT' => 'reduce_wallet',
+            'HIRE' => 'restore_wallet'
+        ];
+
+        $co = new WalletService($hiring_stage);
+        $co->scan('HIRE',$this->company->id);
+        $this->assertEquals(20,$co->total);
+
+        $response->assertStatus(200);
+    }
 }
