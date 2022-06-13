@@ -7,7 +7,7 @@ You Are Hired is used by companies to contact and hire candidates. It consists o
 Clone the project above into a directory of your choice and cd into the project directory to run the following commands:
 
 ```
-./vendor/bin/sail up
+docker-compose up
 ```
 ```
 docker exec -it you-are-hired_laravel.test_1 composer install
